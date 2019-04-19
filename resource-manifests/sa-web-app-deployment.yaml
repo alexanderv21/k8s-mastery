@@ -16,7 +16,7 @@ spec:
         app: sa-web-app
     spec:
       containers:
-        - image: gcr.io/green-calling-203409/sa-webapp:v1
+        - image: gcr.io/green-calling-203409/sa-web-app:v1
           imagePullPolicy: Always
           name: sa-web-app
           env:
