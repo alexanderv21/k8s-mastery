@@ -1,0 +1,27 @@
+version: "2.0"
+
+services:
+  sa-frontend:
+    build:
+      context: ./sa-frontend
+    image: gcr.io/green-calling-203409/sa-frontend:v5
+    ports:
+      - "80:80"
+
+  sa-web-app:
+    build:
+      context: ./sa-web-app
+    image: gcr.io/green-calling-203409/sa-web-app:v1
+    ports:
+      - "8080:8080"
+    environment:
+      - SA_LOGIC_API_URL=http://sa-logic:5000
+    links:
+      - sa-logic
+
+  sa-logic:
+    build:
+      context: ./sa-logic
+    image: gcr.io/green-calling-203409/sa-logic:v1
+    ports:
+      - "5000:5000"
