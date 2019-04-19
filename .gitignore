@@ -9,7 +9,13 @@ venv/
 target/
 .mvn/
 !**/maven-wrapper.jar
+.settings/
+.project
+.classpath
 
 # IDE ignored files
 .idea/
 *.iml
+
+# Other
+.vscode/
