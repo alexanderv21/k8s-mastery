@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: sa-logic
+  name: sa-web-app
 spec:
   ports:
     - port: 80
       protocol: TCP
-      targetPort: 5000
+      targetPort: 8080
   selector:
-    app: sa-logic
+    app: sa-web-app
