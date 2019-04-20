@@ -1,6 +1,4 @@
-import React, {
-    Component
-} from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TextField from 'material-ui/TextField';
@@ -12,6 +10,12 @@ const style = {
     marginLeft: 12,
 };
 
+// change environment variable on .env files
+var url = 'http://localhost:8080/sentiment'
+if (process.env.REACT_APP_ENV === 'k8s') {
+    url = '/sentiment'
+}
+
 class App extends Component {
     constructor(props) {
         super(props);
@@ -22,16 +26,13 @@ class App extends Component {
     };
 
     analyzeSentence() {
-        // fetch('http://localhost:8080/sentiment', {
-        fetch('/sentiment', { //for kubernetes purposes
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    sentence: this.textField.getValue()
-                })
-            })
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ sentence: this.textField.getValue() })
+        })
             .then(response => response.json())
             .then(data => this.setState(data));
     }
@@ -44,50 +45,23 @@ class App extends Component {
 
     render() {
         const polarityComponent = this.state.polarity !== undefined ?
-            <
-            Polarity sentence = {
-                this.state.sentence
-            }
-        polarity = {
-            this.state.polarity
-        }
-        /> :
-        null;
+            <Polarity sentence={this.state.sentence} polarity={this.state.polarity} /> :
+            null;
 
-        return ( <
-                MuiThemeProvider >
-                <
-                div className = "centerize" >
-                <
-                Paper zDepth = {
-                    1
-                }
-                className = "content" >
-                <
-                h2 > Sentiment Analyser < /h2> <
-                TextField ref = {
-                    ref => this.textField = ref
-                }
-                onKeyUp = {
-                    this.onEnterPress.bind(this)
-                }
-                hintText = "Type your sentence." / >
-                <
-                RaisedButton label = "Send"
-                style = {
-                    style
-                }
-                onClick = {
-                    this.analyzeSentence.bind(this)
-                }
-                /> {
-                polarityComponent
-            } <
-            /Paper> < /
-        div > <
-            /MuiThemeProvider>
-    );
-}
+        return (
+            <MuiThemeProvider>
+                <div className="centerize">
+                    <Paper zDepth={1} className="content">
+                        <h2>Sentiment Analyser</h2>
+                        <TextField ref={ref => this.textField = ref} onKeyUp={this.onEnterPress.bind(this)}
+                            hintText="Type your sentence." />
+                        <RaisedButton label="Send" style={style} onClick={this.analyzeSentence.bind(this)} />
+                        {polarityComponent}
+                    </Paper>
+                </div>
+            </MuiThemeProvider>
+        );
+    }
 }
 
 export default App;

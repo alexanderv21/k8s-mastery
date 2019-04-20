@@ -1,13 +1,12 @@
-version: "2.0"
+version: "3.7"
 
 services:
   sa-frontend:
     build:
       context: ./sa-frontend
-    image: gcr.io/green-calling-203409/sa-frontend:v5
+    image: gcr.io/green-calling-203409/sa-frontend:v1docker
     ports:
       - "80:80"
-
   sa-web-app:
     build:
       context: ./sa-web-app
@@ -18,7 +17,6 @@ services:
       - SA_LOGIC_API_URL=http://sa-logic:5000
     links:
       - sa-logic
-
   sa-logic:
     build:
       context: ./sa-logic

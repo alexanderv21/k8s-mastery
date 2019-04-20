@@ -1,6 +1,6 @@
 ## Setting the application up
 
-Initialize `helm` with your cluster.
+Initialize `helm` with your cluster:
 
 ```
 $ helm init
@@ -18,10 +18,10 @@ From the root directory execute the following command:
 $ kubectl apply -f ./resource-manifests/
 ```
 
-Get the `External IP` of the Ingress controller:
+Get IP of the ingress controller by executing the command below:
 
 ```
-$ kubectl get svc --all-namespaces -l component=controller
+minikube service list
 ```
 
-Open the external ip in the browser.
+Open the IP on your preferred browser

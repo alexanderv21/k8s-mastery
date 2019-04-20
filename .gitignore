@@ -1,21 +1,3 @@
-# SA Frontend ignored files
-node_modules/
-**/sa-frontend/build/
-
-# SA Logic ignored files
-venv/
-
-# SA WebApp ignored files
-target/
-.mvn/
-!**/maven-wrapper.jar
-.settings/
-.project
-.classpath
-
-# IDE ignored files
-.idea/
-*.iml
-
-# Other
 .vscode/
+.project
+node_modules/
