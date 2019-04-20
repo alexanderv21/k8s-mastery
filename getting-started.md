@@ -1,4 +1,20 @@
-## Setting the application up
+# sentiment analysis
+
+## Setting the application up on docker
+
+Initialize the application using `docker-compose`
+
+```
+$ docker-compose up -d
+```
+
+Open the IP on your preferred browser
+
+```
+http://localhost
+```
+
+## Setting the application up on k8s
 
 Initialize `helm` with your cluster:
 
