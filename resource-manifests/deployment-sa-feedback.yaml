@@ -1,9 +1,9 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: sa-logic
+  name: sa-feedback
 spec:
-  replicas: 2
+  replicas: 1
   minReadySeconds: 15
   strategy:
     type: RollingUpdate
@@ -13,14 +13,17 @@ spec:
   template:
     metadata:
       labels:
-        app: sa-logic
+        app: sa-feedback
     spec:
       containers:
-        - image: gcr.io/green-calling-203409/sa-logic:v1
+        - image: gcr.io/green-calling-203409/sa-feedback:v1
           imagePullPolicy: Always
-          name: sa-logic
+          name: sa-feedback
+          env:
+            - name: DATABASE_DIR
+              value: /usr/db
           ports:
-            - containerPort: 5000
+            - containerPort: 80
           resources:
             requests:
               cpu: 300m
@@ -28,3 +31,10 @@ spec:
             limits:
               cpu: 500m
               memory: 384Mi
+          volumeMounts:
+            - name: sqlite-volume
+              mountPath: /usr/db
+      volumes:
+        - name: sqlite-volume
+          persistentVolumeClaim:
+            claimName: sqlite-pvc

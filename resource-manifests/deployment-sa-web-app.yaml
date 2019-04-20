@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: sa-web-app
 spec:
-  replicas: 2
+  replicas: 1
   minReadySeconds: 15
   strategy:
     type: RollingUpdate

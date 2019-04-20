@@ -23,3 +23,13 @@ services:
     image: gcr.io/green-calling-203409/sa-logic:v1
     ports:
       - "5000:5000"
+  sa-feedback:
+    build:
+      context: ./sa-feedback
+    image: gcr.io/green-calling-203409/sa-feedback:v1
+    ports:
+      - "9000:80"
+    environment:
+      - DATABASE_DIR=/usr/db
+    volumes:
+      - "./sa-feedback/Database:/usr/db"
